@@ -26,6 +26,7 @@ import com.sevya.tasks.model.Color;
 import com.sevya.tasks.model.Company;
 import com.sevya.tasks.model.Product;
 import com.sevya.tasks.model.ProductCategoryMapper;
+import com.sevya.tasks.repository.ProductRepository;
 import com.sevya.tasks.service.CategoryService;
 import com.sevya.tasks.service.ColorService;
 import com.sevya.tasks.service.CompanyService;
@@ -45,6 +46,9 @@ public class ProductManagementController {
 
 	@Autowired
 	public ProductService productService;
+	
+	@Autowired 
+	public ProductRepository productRepository;
 
 	@RequestMapping(value = "/category/all", method = RequestMethod.GET)
 	public List<CategoryDto> getAllCategories() {
@@ -126,6 +130,11 @@ public class ProductManagementController {
 			}
 		} 
 		return productDtos;
+	}
+	
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
+	public void deleteProductById(@PathVariable Integer id) {
+		productRepository.deleteProductById(id);
 	}
 
 }
